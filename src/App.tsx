@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from "@material-ui/core/Grid";
-import TextField from '@material-ui/core/TextField';
 import UserDetails from "./components/User/UserDetails";
-import Typography from "@material-ui/core/Typography"
-import { fetchUsers, search } from "./apis/users";
-import { debounce } from "./utils/helpers";
+import SearchField from "./components/User/SearchField";
 
 
-interface IUser {
-  name: string;
-  email: string;
-  address: string;
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,29 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const App: React.FC = () => {
-  const [users, setUsers] = useState([])
-  const [searchField, setSeachField] = useState('');
-  const [error, setError] = useState(false)
-  const debounceOnChange = useCallback(debounce(handleChange, 400), []);
+const App = () => {
+  // const [searchField, setSeachField] = useState('');
+  // const debounceOnChange = useCallback(debounce(handleChange, 300), []);
 
   const classes = useStyles();
-
-  useEffect(() => {
-    fetchUsers()
-      .then(response => {
-        const { data } = response;
-        setUsers(data)
-      })
-      .catch(error => setError(true))
-  }, [])
-
-  function handleChange(value: string) {
-    setSeachField(value);
-    search(value)
-      .then(response => setUsers(response.data))
-
-  }
 
   return (
     <div className={classes.root}>
@@ -61,26 +35,12 @@ const App: React.FC = () => {
         spacing={3}
       >
         <Grid item className={classes.search}>
-          <TextField
-            label="Search User(s)"
-            value={searchField}
-            onChange={(e) => debounceOnChange(e.target.value)}
-            variant="outlined"
-          />
+          <SearchField />
         </Grid>
         <Grid item className={classes.item}>
-          {
-            error ?
-              (
-                <Grid container direction="column" justify="center">
-                  <Grid item className={classes.item}><Typography variant="h4">An error occurs while loading users' list</Typography></Grid>
-                  <Grid item className={classes.item}><img src="https://i.imgur.com/yW2W9SC.png" alt="broken_page" /></Grid>
-                </Grid>)
-              :
-              <Grid container alignContent="space-between">
-                <UserDetails users={users} />
-              </Grid>
-          }
+          <Grid container alignContent="space-between">
+            <UserDetails />
+          </Grid>
         </Grid>
       </Grid>
     </div>

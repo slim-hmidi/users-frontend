@@ -38,7 +38,7 @@ const RecipeReviewCard = (props: IProps) => {
         }
         action={
           <div>
-            <IconButton aria-label="settings">
+            <IconButton>
               <DeleteIcon />
             </IconButton>
 
