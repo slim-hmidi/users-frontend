@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -8,37 +10,51 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import { IUser } from '../redux/types/user.types';
+import { deleteRequest } from "../redux/actions/user"
+
 
 interface IProps {
-  title: string;
+  user: IUser;
   children: React.ReactNode;
+  deleteRequest: (id: string) => void
 }
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
-      width: '100%',
+      width: '345px',
+      height: '250px',
     },
     avatar: {
       backgroundColor: red[500],
     },
+    typography: {
+      width: '50px'
+    }
   }),
 );
 
 const RecipeReviewCard = (props: IProps) => {
   const classes = useStyles();
-  const { title, children } = props;
+  const { children, deleteRequest, user } = props;
+
+  const handleDelete = () => {
+    deleteRequest(user._id)
+  }
 
   return (
     <Card className={classes.card}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {title[0].toUpperCase()}
+            {user.name[0].toUpperCase()}
           </Avatar>
         }
         action={
           <div>
-            <IconButton>
+            <IconButton
+              onClick={handleDelete}
+            >
               <DeleteIcon />
             </IconButton>
 
@@ -47,7 +63,7 @@ const RecipeReviewCard = (props: IProps) => {
             </IconButton>
           </div>
         }
-        title={title}
+        title={user.name}
       />
       <CardContent>
         {children}
@@ -57,5 +73,8 @@ const RecipeReviewCard = (props: IProps) => {
   );
 }
 
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  deleteRequest: (id: string) => dispatch<any>(deleteRequest(id))
+})
 
-export default RecipeReviewCard;
+export default connect(null, mapDispatchToProps)(RecipeReviewCard);

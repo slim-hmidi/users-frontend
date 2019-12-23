@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import './index.css';
 import ErrorBoundary from "./components/Error";
-import App from './App';
+import Root from './Root';
 import store from "./redux/store/index";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <ErrorBoundary>
     <Provider store={store}>
-      <App />
+      <Root />
     </Provider>
   </ErrorBoundary>, document.getElementById('root'));
 

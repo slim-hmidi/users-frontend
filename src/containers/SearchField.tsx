@@ -2,9 +2,9 @@ import React, { useCallback } from "react";
 import { Dispatch } from "redux"
 import { connect } from "react-redux";
 import TextField from '@material-ui/core/TextField';
-import { searchUser } from "../../redux/actions/user";
-import { debounce } from "../../utils/helpers";
-import { IAppState } from "../../redux/reducers";
+import { searchUser } from "../redux/actions/user";
+import { debounce } from "../utils/helpers";
+import { IAppState } from "../redux/reducers";
 
 interface IProps {
   searchField?: string;

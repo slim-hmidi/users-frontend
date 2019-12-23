@@ -1,11 +1,12 @@
-import { combineReducers, Reducer } from "redux"
+import { combineReducers } from "redux"
+import { reducer as formReducer } from "redux-form";
 import userReducer from "./user";
-import { IUserState, userAction } from "../types/user.types";
 
-export interface IAppState {
-  user: IUserState,
-}
 
-export const reducer: Reducer<IAppState, userAction> = combineReducers<IAppState, userAction>({
-  user: userReducer
+
+export const reducer = combineReducers({
+  user: userReducer,
+  form: formReducer,
 })
+
+export type IAppState = ReturnType<typeof reducer>;

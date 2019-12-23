@@ -1,15 +1,18 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid";
-import UserDetails from "./components/User/UserDetails";
-import SearchField from "./components/User/SearchField";
-
+import UserDetails from "./containers/User/UserDetails";
+import SearchField from "./containers/SearchField";
+import history from "./history";
 
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      overflow: 'hidden'
     },
     item: {
       margin: theme.spacing(4)
@@ -18,16 +21,21 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(4),
       margin: '0 auto',
       width: '30%'
+    },
+    fab: {
+      position: 'fixed',
+      right: '4px',
+      bottom: '4px'
     }
   }),
 );
 
 const App = () => {
-  // const [searchField, setSeachField] = useState('');
-  // const debounceOnChange = useCallback(debounce(handleChange, 300), []);
-
   const classes = useStyles();
 
+  const handleFabClick = () => {
+    history.push('/createUser')
+  }
   return (
     <div className={classes.root}>
       <Grid container
@@ -38,9 +46,18 @@ const App = () => {
           <SearchField />
         </Grid>
         <Grid item className={classes.item}>
-          <Grid container alignContent="space-between">
+          <Grid container alignContent="stretch">
             <UserDetails />
           </Grid>
+        </Grid>
+        <Grid>
+          <Fab
+            size="large"
+            color="secondary"
+            className={classes.fab}
+            onClick={handleFabClick}>
+            <AddIcon />
+          </Fab>
         </Grid>
       </Grid>
     </div>
