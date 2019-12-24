@@ -1,81 +1,30 @@
 import { Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { AxiosResponse, AxiosError } from "axios";
-import { userTypes, IUser, ICreatedUser, IUpdatedUser } from "../types/user.types";
-import { createUser, deleteUser, fetchUsers } from "../../apis/users";
+import { userTypes } from "../types/user.types";
+import { createUser, deleteUser, fetchUsers, updateUser } from "../../apis/users";
 import { IAppState } from "../reducers/index";
 import history from "../../history";
+import {
+  IFetchUsersFailAction,
+  IFetchUsersStartAction,
+  IFetchUsersSucessAction,
+  ICreateUserFailAction,
+  ICreateUserSucessAction,
+  ICreateUserStartAction,
+  IDeleteUserFailAction,
+  IDeleteUserStartAction,
+  IDeleteUserSuccessAction,
+  IUpdateUserStartAction,
+  IUpdateUserFailAction,
+  IUpdateUserSuccessAction,
+  ICreatedUser,
+  ISearchUser,
+  IUser,
+  IUpdatedUser,
 
-// fetch interfaces
+} from "../types/user.interfaces"
 
-export interface IFetchUsersStartAction {
-  type: userTypes.FETCH_USERS_START
-}
-
-export interface IFetchUsersSucessAction {
-  type: userTypes.FETCH_USERS_SUCCESS,
-  payload: IUser[]
-}
-
-export interface IFetchUsersFailAction {
-  type: userTypes.FETCH_USERS_FAIL,
-  payload: string
-}
-
-// search interfaces
-
-export interface ISearchUser {
-  type: userTypes.SEARCH_USER,
-  payload: string
-}
-
-// Create interface
-
-export interface ICreateUserStartAction {
-  type: userTypes.CREATE_USER_START
-}
-
-export interface ICreateUserSucessAction {
-  type: userTypes.CREATE_USER_SUCCESS,
-  payload: ICreatedUser
-}
-
-export interface ICreateUserFailAction {
-  type: userTypes.CREATE_USER_FAIL,
-  payload: string
-}
-
-// Delete interface
-
-interface IDeleteStartAction {
-  type: userTypes.DELETE_USER_START
-}
-
-export interface IDeleteUserSuccessAction {
-  type: userTypes.DELETE_USER_SUCCESS;
-  payload: string
-}
-
-export interface IDeleteUserFailAction {
-  type: userTypes.DELETE_USER_FAIL;
-  payload: string
-}
-
-// update interfaces
-
-interface IUpdateUserStartAction {
-  type: userTypes.UPDATE_USER_START
-}
-
-export interface IUpdateUserSuccessAction {
-  type: userTypes.UPDATE_USER_SUCCESS;
-  payload: IUpdatedUser
-}
-
-export interface IUpdateUserFailAction {
-  type: userTypes.UPDATE_USER_FAIL;
-  payload: string
-}
 
 // fetch actions
 const startFetchUsers = (): IFetchUsersStartAction => ({
@@ -116,7 +65,7 @@ export const searchUser = (value: string): ISearchUser => ({
 
 // delete actions
 
-const deleteStart = (): IDeleteStartAction => ({
+const deleteStart = (): IDeleteUserStartAction => ({
   type: userTypes.DELETE_USER_START,
 })
 
@@ -181,7 +130,7 @@ const updateStart = (): IUpdateUserStartAction => ({
   type: userTypes.UPDATE_USER_START,
 })
 
-const updateSuccess = (user: IUpdatedUser): IUpdateUserSuccessAction => ({
+const updateSuccess = (user: IUser): IUpdateUserSuccessAction => ({
   type: userTypes.UPDATE_USER_SUCCESS,
   payload: user
 })
@@ -191,10 +140,10 @@ const updateFail = (error: string): IUpdateUserFailAction => ({
   payload: error
 })
 
-export const updateRequest = (user: ICreatedUser): ThunkAction<void, IAppState, null, Action<string>> => {
+export const updateRequest = (user: IUpdatedUser): ThunkAction<void, IAppState, null, Action<string>> => {
   return (dispatch: Dispatch) => {
     dispatch(updateStart());
-    createUser(user)
+    updateUser(user)
       .then((response: AxiosResponse) => {
         const { data } = response
         dispatch(updateSuccess(data));

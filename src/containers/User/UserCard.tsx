@@ -10,14 +10,15 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { IUser } from '../redux/types/user.types';
-import { deleteRequest } from "../redux/actions/user"
+import { IUser } from '../../redux/types/user.interfaces';
+import { deleteRequest } from "../../redux/actions/user"
+import history from "../../history";
 
 
 interface IProps {
   user: IUser;
   children: React.ReactNode;
-  deleteRequest: (id: string) => void
+  deleteRequest: (id: string) => void;
 }
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,6 +42,9 @@ const RecipeReviewCard = (props: IProps) => {
   const handleDelete = () => {
     deleteRequest(user._id)
   }
+  const handleEdit = () => {
+    history.push(`/updateUser/${user._id}`);
+  }
 
   return (
     <Card className={classes.card}>
@@ -58,7 +62,8 @@ const RecipeReviewCard = (props: IProps) => {
               <DeleteIcon />
             </IconButton>
 
-            <IconButton aria-label="settings">
+            <IconButton
+              onClick={handleEdit}>
               <EditIcon />
             </IconButton>
           </div>

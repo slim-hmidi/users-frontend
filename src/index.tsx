@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import './index.css';
-import ErrorBoundary from "./components/Error";
+import ErrorBoundary from "./components/common/Error";
 import Root from './Root';
 import store from "./redux/store/index";
 import * as serviceWorker from './serviceWorker';

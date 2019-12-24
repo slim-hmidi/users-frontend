@@ -2,10 +2,13 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import CardWrapper from "../../components/common/CardWrapper";
 import TextField from "../../components/common/TextField";
-import { submit, validate } from "./submit";
+import { updateSubmit, validate } from "./submit";
+import { IAppState } from "../../redux/reducers";
+import { selectedUser } from "../../redux/selectors/user";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
   })
 );
-const UpdateUser = ({ pristine, submitting, handleSubmit }: any) => {
+const UpdateUser = ({ pristine, submitting, handleSubmit, match }: any) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -88,8 +91,24 @@ const UpdateUser = ({ pristine, submitting, handleSubmit }: any) => {
 
 const UpdateUserForm = reduxForm({
   form: "UpdateUser",
-  onSubmit: submit,
+  onSubmit: updateSubmit,
   validate
 })(UpdateUser);
 
-export default UpdateUserForm;
+
+const mapStateToProps = (state: IAppState, ownParams: any) => {
+  const userSelected = selectedUser(ownParams.match.params.userId)(state)
+  let initialValues;
+  if (userSelected) {
+    initialValues = {
+      name: userSelected.name,
+      address: userSelected.address,
+      email: userSelected.email
+    }
+  }
+  return {
+    initialValues
+  }
+}
+
+export default connect(mapStateToProps)(UpdateUserForm);

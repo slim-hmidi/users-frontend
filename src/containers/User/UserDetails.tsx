@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import SimpleCard from "../../components/SimpleCard";
-import { IUser } from "../../redux/types/user.types";
+import UserCard from "./UserCard";
+import { IUser } from "../../redux/types/user.interfaces";
 import { fetchUsersRequest } from "../../redux/actions/user"
 import { IAppState } from "../../redux/reducers/index";
 import { filteredUsers } from "../../redux/selectors/user"
@@ -51,11 +51,11 @@ const UserDetails: any = (props: IProps) => {
             item
             className={classes.item}
           >
-            <SimpleCard user={user} >
+            <UserCard user={user} >
               <Typography variant="h6"
                 noWrap>{user.address}</Typography>
               <Typography variant="h6" noWrap>{user.email}</Typography>
-            </SimpleCard>
+            </UserCard>
           </Grid>
         )
       })

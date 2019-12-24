@@ -3,7 +3,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab"
 import Grid from "@material-ui/core/Grid";
-import UserDetails from "./containers/User/UserDetails";
+import UserDetails from "./containers/user/UserDetails";
 import SearchField from "./containers/SearchField";
 import history from "./history";
 

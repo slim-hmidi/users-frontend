@@ -8,33 +8,7 @@ import {
   ISearchUser,
   IUpdateUserSuccessAction,
   IUpdateUserFailAction,
-} from "../actions/user";
-
-export interface IUserState {
-  users: IUser[];
-  error: string;
-  searchField: string;
-}
-
-export interface IUser {
-  _id: string;
-  name: string;
-  address: string;
-  email: string;
-}
-
-export interface ICreatedUser {
-  name: string;
-  address: string;
-  email: string;
-}
-
-export interface IUpdatedUser {
-  _id: string;
-  name?: string;
-  address?: string;
-  email?: string;
-}
+} from "./user.interfaces";
 
 export enum userTypes {
   CREATE_USER_START = "CREATE_USER_START",
@@ -60,4 +34,4 @@ export type userAction = ICreateUserSucessAction |
   IDeleteUserSuccessAction |
   IDeleteUserFailAction |
   IUpdateUserSuccessAction |
-  IUpdateUserFailAction
+  IUpdateUserFailAction 

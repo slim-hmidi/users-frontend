@@ -1,9 +1,8 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { Dispatch } from "redux"
 import { connect } from "react-redux";
 import TextField from '@material-ui/core/TextField';
 import { searchUser } from "../redux/actions/user";
-import { debounce } from "../utils/helpers";
 import { IAppState } from "../redux/reducers";
 
 interface IProps {
@@ -12,16 +11,15 @@ interface IProps {
 }
 const SearchField = (props: IProps) => {
   const { searchField, searchUser } = props;
-  const debounceOnChange = useCallback(debounce(handleChange, 300), []);
-  function handleChange(value: string) {
-    searchUser(value);
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    searchUser(e.target.value);
   }
   return (
     <TextField
       variant="outlined"
       label="Search"
       value={searchField}
-      onChange={(e) => debounceOnChange(e.target.value)}
+      onChange={handleChange}
       fullWidth
     />
   )

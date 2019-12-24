@@ -1,17 +1,23 @@
 import { Dispatch } from "redux";
-import { createRequest } from "../../redux/actions/user";
+import { createRequest, updateRequest } from "../../redux/actions/user";
 
-export interface IUserValues {
+
+export interface IValues {
   address: string;
   name: string;
   email: string;
+  [key: string]: string
 }
 
 interface IError {
   name?: string;
   email?: string;
 }
-const validate = (values: IUserValues) => {
+const validate = (values: {
+  name: string;
+  email: string;
+  address: string;
+}) => {
   const errors: IError = {};
   const { name, email } = values;
   if (!name) {
@@ -28,16 +34,29 @@ const validate = (values: IUserValues) => {
   return errors;
 };
 
-const submit = (values: IUserValues, dispatch: Dispatch) => {
+const submit = (values: IValues, dispatch: Dispatch) => {
   const user = {
     email: values.email,
     name: values.name,
     address: values.address,
   };
 
-  console.log(user)
-
   return dispatch<any>(createRequest(user));
+};
+
+
+export const updateSubmit = (values: IValues, dispatch: Dispatch, { ...props }) => {
+  const { userId } = props.match.params;
+  let user;
+  user = Object.keys(values)
+    .filter((k: string) => values[k])
+    .reduce((acc: any, curr) => {
+      acc[curr] = values[curr];
+      return acc;
+    }, {});
+
+  Object.assign(user, { _id: userId })
+  return dispatch<any>(updateRequest(user));
 };
 
 export { validate, submit };
