@@ -8,7 +8,7 @@ import React from "react";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.palette.primary.main
+      backgroundColor: theme.palette.secondary.main
     },
     title: {
       color: theme.palette.primary.contrastText

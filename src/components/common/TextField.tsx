@@ -35,6 +35,7 @@ function SimpleTextField(props: IProps) {
     <TextField
       required={required}
       className={classes.textField}
+      color="secondary"
       label={label}
       error={!!(meta.touched && meta.error)}
       margin="normal"
