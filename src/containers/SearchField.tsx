@@ -18,6 +18,7 @@ const SearchField = (props: IProps) => {
     <TextField
       variant="outlined"
       label="Search"
+      color="secondary"
       value={searchField}
       onChange={handleChange}
       fullWidth

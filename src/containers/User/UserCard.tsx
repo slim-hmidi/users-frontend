@@ -5,7 +5,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import { red } from '@material-ui/core/colors';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '250px',
     },
     avatar: {
-      backgroundColor: red[500],
+      backgroundColor: theme.palette.secondary.main,
     },
     typography: {
       width: '50px'
