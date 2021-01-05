@@ -23,7 +23,7 @@
     "@types/redux-form": "^8.2.0",
     "@types/redux-thunk": "^2.1.0",
     "@types/reselect": "^2.2.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "history": "^4.10.1",
     "react": "^16.12.0",
